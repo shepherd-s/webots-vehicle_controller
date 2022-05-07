@@ -329,7 +329,7 @@ int main(int argc, char **argv)
 
             case 1:
                 write_file(0);
-                select_population(0);
+                select_population(0, 4);
                 step = 2;
             break;
 

@@ -28,7 +28,7 @@ void initialize_population(int index);
 void evaluate_population(int index, void (*efective_evaluation) (int i));
 
 //Binary ranking
-void select_population(int index);
+void select_population(int index, int k);
 
 //BLX-alpha
 void cross_population();

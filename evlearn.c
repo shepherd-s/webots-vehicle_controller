@@ -236,33 +236,35 @@ void evaluate_population(int index, void (*efective_evaluation) (int i))
 
 /**
  * Implements the selection method of the genetic algorithm.
- * A binary ranking.
+ * A tournament with k given by the argument k.
  *
  * @brief select_population
  * @param index recursive index
+ * @param k number of individuals in the tournament
  */
-void select_population(int index)
+void select_population(int index, int k)
 {
-    int index1 = (int)f_rand(0, POPULATION_SIZE);
-    int index2 = (int)f_rand(0, POPULATION_SIZE);
+    int winner = 0;
+    int index_a[] = {};
+    double index_f = 0;
+    double winner_f = 0;
 
-    if (index1 == POPULATION_SIZE) {
-        index1--;
+    for (int i=0 ; i<k; i++) {
+        index_a[i] = (int)f_rand(0, POPULATION_SIZE);
     }
-    if (index2 == POPULATION_SIZE) {
-        index2--;
+    for (int i=0; i<k; i++) {
+        if (index_a[i] == POPULATION_SIZE) {
+            index_a[i]--;
+        }
     }
-    if (index1 == index2) {
-        index1 == POPULATION_SIZE-1  ? index2-- : index2++;
-        index1 == 0 ? index2++ : index2--;
+    winner_f = population[index_a[0]].fitness;
+    for (int i=1; i<k; i++) {
+        index_f = population[index_a[i]].fitness;
+        if (index_f > winner_f) {
+            winner = index_a[i];
+        }
     }
-
-    if(population[index1].fitness >= population[index2].fitness) {
-        population[index1].s_count++;
-    }
-    else {
-        population[index2].s_count++;
-    }
+    population[winner].s_count++;
 
     if(index < POPULATION_SIZE-1) {
         select_population(index+1);
