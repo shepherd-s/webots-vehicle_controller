@@ -1,0 +1,235 @@
+#VRML_SIM R2021b utf8
+WorldInfo {
+  info [
+    "A self-driving truck that learns to follow a road by evolutive learning."
+  ]
+  title "Autonomous truck"
+  window "generic"
+  ERP 0.6
+  basicTimeStep 10
+  FPS 30
+  coordinateSystem "NUE"
+  lineScale 1
+  contactProperties [
+    ContactProperties {
+      coulombFriction [
+        8
+      ]
+      softCFM 1e-05
+      bumpSound ""
+      rollSound ""
+      slideSound ""
+    }
+    ContactProperties {
+      material2 "CitroenCZeroWheels"
+      coulombFriction [
+        8
+      ]
+      softCFM 1e-05
+      bumpSound ""
+      rollSound ""
+      slideSound ""
+    }
+    ContactProperties {
+      material2 "ToyotaPriusWheels"
+      coulombFriction [
+        8
+      ]
+      softCFM 1e-05
+      bumpSound ""
+      rollSound ""
+      slideSound ""
+    }
+    ContactProperties {
+      material2 "LincolnMKZWheels"
+      coulombFriction [
+        8
+      ]
+      softCFM 1e-05
+      bumpSound ""
+      rollSound ""
+      slideSound ""
+    }
+    ContactProperties {
+      material2 "RangeRoverSportSVRWheels"
+      coulombFriction [
+        8
+      ]
+      softCFM 1e-05
+      bumpSound ""
+      rollSound ""
+      slideSound ""
+    }
+    ContactProperties {
+      material2 "TruckWheels"
+      coulombFriction [
+        8
+      ]
+      softCFM 1e-05
+      bumpSound ""
+      rollSound ""
+      slideSound ""
+    }
+  ]
+}
+DEF VIEWPOINT Viewpoint {
+  orientation 0.7140590865067042 0.6861891046279308 0.13879529411017416 5.5125642118892655
+  position -57.27504447116851 75.83296044324219 341.71586705096104
+  near 1
+  follow "vehicle"
+  followType "None"
+  followSmoothness 1
+  ambientOcclusionRadius 7
+}
+TexturedBackground {
+  texture "noon_sunny_empty"
+}
+Floor {
+  size 10000 10000
+  appearance Parquetry {
+    type "light strip"
+    colorOverride 0.188235 1 0.172549
+  }
+}
+SolidRoundedBox {
+  translation 166.343 0.5 323.38
+  rotation 0 1 0 -0.11
+  size 10 2 10
+}
+TexturedBackgroundLight {
+  texture "noon_cloudy_countryside"
+  castShadows FALSE
+}
+Fog {
+  color 0.606928 0.65417 0.716991
+  fogType "EXPONENTIAL2"
+  visibilityRange 1000
+}
+DEF FLOOR Solid {
+  boundingObject Plane {
+  }
+}
+DEF ROAD Road {
+  translation -6 0.01 0
+  id "0"
+  width 11
+  numberOfForwardLanes 0
+  lines [
+    RoadLine {
+      type "continuous"
+    }
+  ]
+  roadBorderHeight 1
+  rightBorder FALSE
+  leftBorder FALSE
+  rightBarrier TRUE
+  leftBarrier TRUE
+  wayPoints [
+    -90 0 0
+    -100 0 50
+    10 0 10
+    40 0 30
+    -80 0 155
+    50 0 200
+    0 0 220
+    -30 0 230
+    -30 0 250
+    -5 0 250
+    60 0 250
+    60 0 300
+    120 0 320
+    250 0 330
+  ]
+  startingAngle [
+    0
+  ]
+  splineSubdivision 16
+  rightBorderBoundingObject TRUE
+}
+DEF WEBOTS_VEHICLE0 Truck {
+  hidden position_0_0 -0.012308522738540884
+  hidden position2_0_0 238912.43850986808
+  hidden position_0_1 -0.012242551847144234
+  hidden position2_0_1 234280.45341705988
+  hidden position_0_2 233681.85728177853
+  hidden position_0_3 228203.25135775568
+  hidden position_0_4 -0.06903796585330942
+  hidden linearVelocity_0 2.916602100912395 0.0005326310768610192 1.7960857938970425
+  hidden angularVelocity_0 -0.00014332593846992227 0.009371614350099231 0.0002917294090749241
+  hidden rotation_1 -0.01987727910253817 0.9997834937050517 -0.00615300661471048 0.6005120139260977
+  hidden linearVelocity_1 2.911585475516637 5.713775528950628e-05 1.7847480062302472
+  hidden angularVelocity_1 3.566816890091252 0.018096714988324172 -5.832011256797266
+  hidden rotation_2 -0.017381124237771536 -0.9998302047292724 -0.0061203130028084606 5.605947158790438
+  hidden linearVelocity_2 2.929034548251413 3.6893659586973995e-05 1.7957131673690927
+  hidden angularVelocity_2 3.592859433191947 0.018121449566042815 -5.873726028207003
+  hidden rotation_3 0 -1 0 2.3706628446486353
+  hidden linearVelocity_3 2.885323333886975 -0.0001211218467611361 1.8265235711490702
+  hidden angularVelocity_3 3.6402154050051183 0.014272264332129464 -5.790321940137035
+  hidden rotation_4 0 0.9999999999999999 0 2.0389990068988766
+  hidden linearVelocity_4 2.902775473702872 -0.00014195289395973332 1.8374940989243151
+  hidden angularVelocity_4 3.6621842674485547 0.01434959688262772 -5.825263209301186
+  hidden translation_10 0.005518650959509407 0 -0.07980942608230723
+  hidden rotation_10 0 -1 0 0.06903796585331187
+  hidden position_10_0 221870.853607218
+  hidden position_10_1 226818.30398151054
+  hidden position_10_2 221417.43070928473
+  hidden position_10_3 226352.84021901703
+  hidden position_10_4 221057.12789779468
+  hidden position_10_5 225497.46405024524
+  hidden linearVelocity_10 2.782034440988145 -0.0004218851696775952 1.9821652066236186
+  hidden angularVelocity_10 0.0002376546226726234 0.03548441671844186 2.3075230604969922e-05
+  hidden rotation_12 0 1 0 0.9859599075435969
+  hidden linearVelocity_12 2.813734852231011 -5.328074765986219e-05 1.999032887681675
+  hidden angularVelocity_12 4.068412774451067 0.023925107591333785 -5.575990833247524
+  hidden rotation_13 0 -1 0 4.685607672527854
+  hidden linearVelocity_13 2.7563990261261355 -5.013533894752292e-06 1.9571997960313483
+  hidden angularVelocity_13 3.984768596172779 0.02410704195733246 -5.461299056096025
+  hidden rotation_14 0 1 0 2.0195157238971913
+  hidden linearVelocity_14 2.7903309550751634 -4.587301184517749e-05 2.0309509300021853
+  hidden angularVelocity_14 4.068872151403544 0.032423582287837045 -5.575405812804114
+  hidden rotation_15 0 -1 0 5.193657434751514
+  hidden linearVelocity_15 2.7329948152347905 2.3905024533756063e-06 1.9891181867803804
+  hidden angularVelocity_15 3.985196095288232 0.03243864541699724 -5.460737010964692
+  hidden rotation_16 0 -1 0 2.1024206024671432
+  hidden linearVelocity_16 2.7669617938983015 -3.8171297774436217e-05 2.0628217457980984
+  hidden angularVelocity_16 4.069346679742733 0.04089649434403139 -5.574798803188388
+  hidden rotation_17 0 -0.9999999999999999 0 6.056624430120189
+  hidden linearVelocity_17 2.7095920610851643 1.0078483167813776e-05 2.0210345781942367
+  hidden angularVelocity_17 3.985618728764379 0.04076549071367127 -5.46016714985083
+  translation -16.570116704261487 0.4885229688962238 175.8956815428116
+  rotation 0.004635952431473323 0.9999870759270076 -0.0020870850500560563 1.0096694389340284
+  trailer DEF trailer TruckTrailer {
+    appearance PBRAppearance {
+      baseColor 0.686275 0.686275 0.686275
+      baseColorMap ImageTexture {
+        url [
+          "https://raw.githubusercontent.com/cyberbotics/webots/R2021b/projects/vehicles/protos/generic/textures/truck_trailer_webots.jpg"
+        ]
+      }
+      roughness 0.4
+      metalness 0
+    }
+  }
+  controller "<extern>"
+  supervisor TRUE
+  sensorsSlotFront [
+    SickLms291 {
+      translation 0 -0.94 -0.06
+      resolution 9
+    }
+  ]
+  sensorsSlotCenter [
+    SickLms291 {
+      translation 1.4 0.05 -0.61
+      rotation 0 -1 0 1.5708
+      name "Sick LMS 291 left"
+      resolution 9
+    }
+    SickLms291 {
+      translation -1.35 0.06 -0.6
+      rotation 0 1 0 1.5708
+      name "Sick LMS 291 right"
+      resolution 9
+    }
+  ]
+}
