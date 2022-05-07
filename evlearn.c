@@ -244,8 +244,8 @@ void evaluate_population(int index, void (*efective_evaluation) (int i))
  */
 void select_population(int index, int k)
 {
+    int index_a[k];
     int winner = 0;
-    int index_a[] = {};
     double index_f = 0;
     double winner_f = 0;
 
@@ -267,7 +267,7 @@ void select_population(int index, int k)
     population[winner].s_count++;
 
     if(index < POPULATION_SIZE-1) {
-        select_population(index+1);
+        select_population(index+1, k);
     }
 }
 
