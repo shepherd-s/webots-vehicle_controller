@@ -1,4 +1,4 @@
-# Webots-genetic_truck_controller-3.2.0
+# Webots-genetic_truck_controller-3.3.1
 A genetic algorithm to teach a self-driving truck how to follow a road, based on LiDAR readings of near roadside barriers.
 
 ## DESCRIPTION
@@ -16,8 +16,9 @@ also ("genetic_truck.pro").
 - Crossing method: BLX-alpha (generating 2 sons and selecting the most different one (euclidean distance) from the mother).  
 - Mutation method: Uniform (not applied to the best individual).
 
-## CHANGELOG 3.3.0
+## CHANGELOG
 - Mutation probability now is given by an argument in the mutation function and it is inversely proportional to the fitness.
+- Fixed bug in cross_population method.
 
 ## TRAINING SAMPLE VIDEO
 https://user-images.githubusercontent.com/90930079/166741456-0ce57418-f55b-4a4e-8145-9d01ffad18d9.mp4

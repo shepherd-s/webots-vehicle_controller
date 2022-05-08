@@ -73,7 +73,7 @@ const double min_max[CHROM_ARRAY_SIZE*2][CHROM_SIZE] = {{0,0,0,0,-1,-1,-1,-1,-1}
                                                       {0,0,0,0,0,0,0,0,0},
                                                       {1,1,1,1,1,1,1,1,1},
                                                       {0.5,0,0,0,0,0,0,0,0},
-                                                      {1,.06,0,0,0,0,0,0,0}};
+                                                      {1,0,0,0,0,0,0,0,0}};
 
 /**
  * Check if the value given is out of the {min, max}
@@ -349,7 +349,7 @@ int main(int argc, char **argv)
             break;
 
             case 3:
-                mutate_population(0);
+                mutate_population(0, 0.08, 0);
                 step = 0;
             break;
         }

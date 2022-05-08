@@ -53,9 +53,13 @@ double f_rand(double min, double max)
  */
 int find_best() {
     int index = 0;
+    double i_f = 0;
+    double index_f = 0;
 
     for (int i=0; i<POPULATION_SIZE; i++) {
-        if(population[i].fitness > population[index].fitness) {
+        i_f = population[i].fitness;
+        index_f = population[index].fitness;
+        if(i_f > index_f) {
             index = i;
         }
     }
@@ -300,10 +304,9 @@ void cross_population()
     }
 
     for (int i=0; i<POPULATION_SIZE; i++) {
-        for (int j=0; j<POPULATION_SIZE; j++) {
-            for (int k=0; k<POPULATION_SIZE; k++) {
+        for (int j=0; j<CHROM_ARRAY_SIZE; j++) {
+            for (int k=0; k<CHROM_SIZE; k++) {
                 population[i].s_count = 0;
-                population[i].fitness = 0;
                 population[i].chromosome[j][k] = son_matrix[i][j][k];
             }
         }
@@ -322,18 +325,18 @@ void mutate_population(int index, double m_prob, int best)
     int b = index == 0 ? find_best() : best;
     double mp = m_prob;
     double best_f = population[b].fitness;
-    double omega = 0;
+    double omega = (1-(population[index].fitness/best_f))*mp;
     double threshold = 0;
 
     if (index < POPULATION_SIZE) {
         for (int i=0; i<CHROM_ARRAY_SIZE; i++) {
             for (int j=0; j<CHROM_SIZE; j++) {
-                omega = f_rand(0, 1);
-                threshold = (1-(population[index].chromosome[i][j]/best_f))*m_prob;
-                if (omega < threshold) {
+                threshold = f_rand(0, 1);
+                if (threshold < omega) {
                     population[index].chromosome[i][j] = f_rand(min_max[i*2][j], min_max[i*2+1][j]);
                 }
             }
+            population[i].fitness = 0;
         }
         mutate_population(index+1, mp, b);
     }
