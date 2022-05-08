@@ -1,7 +1,7 @@
 /**
  * File: evlearn.h
  * Description: This is a header for a genetic algorithm
- *              using a weight matrix as cromosome.
+ *              using a weight matrix as chromosome.
  *
  * Author: Shepherdsoft_s
  * Contact: shepherdsoft@outlook.com
@@ -9,18 +9,18 @@
 
 #pragma once
 
-#define CROM_ARRAY_SIZE 6       //TO CHANGE
-#define CROM_SIZE 9             //
+#define CHROM_ARRAY_SIZE 6       //TO CHANGE
+#define CHROM_SIZE 9             //
 #define POPULATION_SIZE 20      //
 
 typedef struct Individual {
     int s_count;
     double fitness;
 
-    double cromosome[CROM_ARRAY_SIZE][CROM_SIZE];
+    double chromosome[CHROM_ARRAY_SIZE][CHROM_SIZE];
 } Individual;
 
-//Gives ramdom initial values to the cromosomes of the population
+//Gives ramdom initial values to the chromosomes of the population
 void initialize_population(int index);
 
 //The evaluation is done througt an efective_evaluation function

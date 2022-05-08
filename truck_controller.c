@@ -5,7 +5,7 @@
  *              it uses the Webots API and the evlearn.h
  *              header wich implements a genetic algorithm
  *              to find suitable values in a weight matrix
- *              used as cromosome for a given optimisation
+ *              used as chromosome for a given optimisation
  *              function.
  *
  * Author: Shepherdsoft_s
@@ -58,11 +58,11 @@ WbFieldRef rotation_f;
  * This 3 declarations are mandatory to declare this two variables,
  * they are used by the header evlearn.h implementation
  * as global variables. The min max matrix contains the maximum
- * and minimum for each value in the cromosome.
+ * and minimum for each value in the chromosome.
  */
 Individual population[POPULATION_SIZE];
 FILE *file;
-const double min_max[CROM_ARRAY_SIZE*2][CROM_SIZE] = {{0,0,0,0,-1,-1,-1,-1,-1},       //TO CHANGE
+const double min_max[CHROM_ARRAY_SIZE*2][CHROM_SIZE] = {{0,0,0,0,-1,-1,-1,-1,-1},       //TO CHANGE
                                                       {1,1,1,1,1,0,0,0,0},
                                                       {0,0,0,0,0,0,0,0,0},
                                                       {.1,.1,.1,.1,.1,.1,.1,.1,.1},
@@ -204,14 +204,14 @@ void efective_evaluation(int individual)
         reading_right[8] = 0;
     }
 
-    for (int i=0; i<CROM_SIZE; i++) {
-        steering += population[individual].cromosome[0][i] * reading[i];
-        steering += population[individual].cromosome[1][i] * reading_left[i];
-        steering += population[individual].cromosome[2][i] * reading_right[i];
-        throttle += population[individual].cromosome[3][i] * reading[i];
-        brake += population[individual].cromosome[4][i] * reading[i];
+    for (int i=0; i<CHROM_SIZE; i++) {
+        steering += population[individual].chromosome[0][i] * reading[i];
+        steering += population[individual].chromosome[1][i] * reading_left[i];
+        steering += population[individual].chromosome[2][i] * reading_right[i];
+        throttle += population[individual].chromosome[3][i] * reading[i];
+        brake += population[individual].chromosome[4][i] * reading[i];
     }
-    gear_coef = population[individual].cromosome[5][0];
+    gear_coef = population[individual].chromosome[5][0];
 
     steering = truncate_value(steering, -.5, .5);
     throttle = truncate_value(throttle, .2, 1);
