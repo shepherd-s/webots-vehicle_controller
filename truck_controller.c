@@ -34,12 +34,12 @@
 #define MIN_RPM 700
 #define MAX_SPEED 200 //in km/h
 
-int p_index = 0; //index of the individual in the population
-int step = 0; //the step determines the genetic operator performed in the main loop
-int generation = 0;
-double time = 0;
-double measure = 0; //speed measured each iteration of the main loop
-double m_count = 1; //measure count, it is used to fin the medium value
+int p_index; //index of the individual in the population
+int step; //the step determines the genetic operator performed in the main loop
+int generation;
+double time;
+double measure; //speed measured each iteration of the main loop
+double m_count; //measure count, it is used to fin the medium value
 const double *translation;
 const double *rotation;
 
@@ -60,6 +60,8 @@ WbFieldRef rotation_f;
  * as global variables. The min max matrix contains the maximum
  * and minimum for each value in the cromosome.
  */
+Individual population[POPULATION_SIZE];
+FILE *file;
 const double min_max[CROM_ARRAY_SIZE*2][CROM_SIZE] = {{0,0,0,0,-1,-1,-1,-1,-1},       //TO CHANGE
                                                       {1,1,1,1,1,0,0,0,0},
                                                       {0,0,0,0,0,0,0,0,0},
@@ -72,8 +74,6 @@ const double min_max[CROM_ARRAY_SIZE*2][CROM_SIZE] = {{0,0,0,0,-1,-1,-1,-1,-1}, 
                                                       {1,1,1,1,1,1,1,1,1},
                                                       {0.5,0,0,0,0,0,0,0,0},
                                                       {1,.06,0,0,0,0,0,0,0}};
-Individual population[POPULATION_SIZE];
-FILE *file;
 
 /**
  * Check if the value given is out of the {min, max}
@@ -247,7 +247,10 @@ void efective_evaluation(int individual)
     fflush(stdout);
 
     //average velocity each main loop iteration
-    measure += (wbu_driver_get_current_speed()*1000)/(60*60);
+    if (speed > 250 || speed < 0) {
+        speed = 0;
+    }
+    measure += speed*0.2778;
     if (m_count > 0) {
         avg_velocity = measure/m_count;
     }
@@ -261,7 +264,7 @@ void efective_evaluation(int individual)
         m_count = 1;
         measure = 0;
 
-        if (individual == POPULATION_SIZE -1) {
+         if (individual == POPULATION_SIZE -1) {
             generation++;
             p_index = 0;
             step = 1;
@@ -289,6 +292,13 @@ int main(int argc, char **argv)
     wbu_driver_init();
 
     srand(getpid());
+
+    p_index = 0; //index of the individual in the population
+    step = 0; //the step determines the genetic operator performed in the main loop
+    generation = 0;
+    time = 0;
+    measure = 0; //speed measured each iteration of the main loop
+    m_count = 1; //measure count, it is used to fin the medium value
 
     truck = wb_supervisor_node_get_from_def("WEBOTS_VEHICLE0");
     translation_f = wb_supervisor_node_get_field(truck, "translation");
