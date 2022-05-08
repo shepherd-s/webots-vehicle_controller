@@ -215,6 +215,9 @@ void efective_evaluation(int individual)
 
     steering = truncate_value(steering, -.5, .5);
     throttle = truncate_value(throttle, .2, 1);
+    if (speed > 250 || speed < 0) {
+        speed = 0;
+    }
     if (speed >= MAX_SPEED) {
         throttle = 0.22;
     }
@@ -247,9 +250,6 @@ void efective_evaluation(int individual)
     fflush(stdout);
 
     //average velocity each main loop iteration
-    if (speed > 250 || speed < 0) {
-        speed = 0;
-    }
     measure += speed*0.2778;
     if (m_count > 0) {
         avg_velocity = measure/m_count;
