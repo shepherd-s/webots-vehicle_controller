@@ -34,7 +34,7 @@ void select_population(int index, int k);
 void cross_population();
 
 //Uniform mutation
-void mutate_population(int index);
+void mutate_population(int index, double m_prob, int best);
 
 //This is to store the last generation so the
 //trainning time is not loss

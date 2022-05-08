@@ -312,24 +312,29 @@ void cross_population()
 
 /**
  * Implements the mutation method of the genetic algorithm.
- * Uniform mutation.
+ * Uniform mutation inversely proportional to the fitness.
  *
  * @brief mutate_population
  * @param index recursive index
  */
-void mutate_population(int index)
+void mutate_population(int index, double m_prob, int best)
 {
+    int b = index == 0 ? find_best() : best;
+    double mp = m_prob;
+    double best_f = population[b].fitness;
     double omega = 0;
+    double threshold = 0;
 
     if (index < POPULATION_SIZE) {
         for (int i=0; i<CHROM_ARRAY_SIZE; i++) {
             for (int j=0; j<CHROM_SIZE; j++) {
                 omega = f_rand(0, 1);
-                if (omega < min_max[CHROM_ARRAY_SIZE*2-1][1]) {
+                threshold = (1-(population[index].chromosome[i][j]/best_f))*m_prob;
+                if (omega < threshold) {
                     population[index].chromosome[i][j] = f_rand(min_max[i*2][j], min_max[i*2+1][j]);
                 }
             }
         }
-        mutate_population(index+1);
+        mutate_population(index+1, mp, b);
     }
 }

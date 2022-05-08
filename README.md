@@ -16,11 +16,8 @@ also ("genetic_truck.pro").
 - Crossing method: BLX-alpha (generating 2 sons and selecting the most different one (euclidean distance) from the mother).  
 - Mutation method: Uniform (not applied to the best individual).
 
-## CHANGELOG 3.2.0
-- Changed the selection method to k tournament.
-- Fixed the euclidean_d function.
-- Changed the mutation probability maximum value from 10% to 6%.
-- Fixed velocity measurement.
+## CHANGELOG 3.3.0
+- Mutation probability now is given by an argument in the mutation function and it is inversely proportional to the fitness.
 
 ## TRAINING SAMPLE VIDEO
 https://user-images.githubusercontent.com/90930079/166741456-0ce57418-f55b-4a4e-8145-9d01ffad18d9.mp4
