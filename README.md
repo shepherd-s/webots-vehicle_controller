@@ -18,8 +18,9 @@ also ("genetic_truck.pro").
 
 ## CHANGELOG 3.2.0
 - Changed the selection method to k tournament.
-- Fixed de euclidean_d function.
+- Fixed the euclidean_d function.
 - Changed the mutation probability maximum value from 10% to 6%.
+- Fixed velocity measurement.
 
 ## TRAINING SAMPLE VIDEO
 https://user-images.githubusercontent.com/90930079/166741456-0ce57418-f55b-4a4e-8145-9d01ffad18d9.mp4
