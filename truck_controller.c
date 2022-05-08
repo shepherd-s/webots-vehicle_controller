@@ -339,7 +339,7 @@ int main(int argc, char **argv)
 
             case 1:
                 write_file(0);
-                select_population(0, 4);
+                select_population(0, 10);
                 step = 2;
             break;
 
