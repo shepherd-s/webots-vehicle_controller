@@ -1,4 +1,4 @@
-# Webots-genetic_truck_controller-3.1.0
+# Webots-genetic_truck_controller-3.2.0
 A genetic algorithm to teach a self-driving truck how to follow a road, based on LiDAR readings of near roadside barriers.
 
 ## DESCRIPTION
@@ -12,13 +12,14 @@ also ("genetic_truck.pro").
 *if not, it will throw a segmentation fault error.*
 
 - Function to optimize: tt * av (where tt = time travelled and av = average velocity).  
-- Selection method: Binary ranking with elitism k = 1 (the best one always survives).  
+- Selection method: Torunament with selectable k (example with k = 4).  
 - Crossing method: BLX-alpha (generating 2 sons and selecting the most different one (euclidean distance) from the mother).  
 - Mutation method: Uniform (not applied to the best individual).
 
-## CHANGELOG
-- Changed the description of the WorldInfo node in the world file.
-- Changed the fps field to 30 in the WorldInfo node for better simulation performance.
+## CHANGELOG 3.2.0
+- Changed the selection method to k tournament.
+- Fixed de euclidean_d function.
+- Changed the mutation probability maximum value from 10% to 6%.
 
 ## TRAINING SAMPLE VIDEO
 https://user-images.githubusercontent.com/90930079/166741456-0ce57418-f55b-4a4e-8145-9d01ffad18d9.mp4
