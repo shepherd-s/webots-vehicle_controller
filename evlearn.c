@@ -142,6 +142,16 @@ void write_file(int index)
     }
 }
 
+int contains(int index_a[], int k, int r)
+{
+    for (int i=0; i<k; i++) {
+        if (index_a[i] == r) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
 /**
  * Performs a BLX-apha crossing.
  *
@@ -252,15 +262,30 @@ void select_population(int index, int k)
     int winner = 0;
     double index_f = 0;
     double winner_f = 0;
+    int r = (int)f_rand(0, POPULATION_SIZE);
 
-    for (int i=0 ; i<k; i++) {
-        index_a[i] = (int)f_rand(0, POPULATION_SIZE);
-    }
     for (int i=0; i<k; i++) {
-        if (index_a[i] == POPULATION_SIZE) {
-            index_a[i]--;
-        }
+        index_a[i] = -1;
     }
+
+    if (r == POPULATION_SIZE) {
+        r--;
+    }
+    index_a[0] = r;
+    for (int i=1 ; i<k; i++) {
+        r = (int)f_rand(0, POPULATION_SIZE);
+        if (r == POPULATION_SIZE) {
+            r--;
+        }
+        while (contains(index_a, k, r)) {
+            r = (int)f_rand(0, POPULATION_SIZE);
+            if (r == POPULATION_SIZE) {
+                r--;
+            }
+        }
+        index_a[i] = r;
+    }
+
     winner_f = population[index_a[0]].fitness;
     for (int i=1; i<k; i++) {
         index_f = population[index_a[i]].fitness;

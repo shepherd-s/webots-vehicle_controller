@@ -293,7 +293,7 @@ int main(int argc, char **argv)
 
     srand(getpid());
 
-    p_index = 0; //index of the individual in the population
+    p_index = 19; //index of the individual in the population
     step = 0; //the step determines the genetic operator performed in the main loop
     generation = 0;
     time = 0;
