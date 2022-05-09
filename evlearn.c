@@ -155,7 +155,7 @@ int contains(int index_a[], int k, int r)
 }
 
 /**
- * Performs a BLX-apha crossing.
+ * Performs a BLX-apha crossover.
  *
  * @brief cross_chromosomes
  * @param mother index of the mother
@@ -304,14 +304,15 @@ void select_population(int index, int k)
 }
 
 /**
- * Implements the crossing method of the genetic algorithm.
+ * Implements the crossover method of the genetic algorithm.
  * The specific method is BLX-alpha. The substitution is done
- * in this step as well.
+ * in this step as well (with elitism k = 1).
  *
  * @brief cross_population
  */
 void cross_population()
 {
+    int best = find_best();
     int mother = 0;
     int s_count = 0;
     int son_index = 0;
@@ -332,12 +333,14 @@ void cross_population()
     }
 
     for (int i=0; i<POPULATION_SIZE; i++) {
-        for (int j=0; j<CHROM_ARRAY_SIZE; j++) {
-            for (int k=0; k<CHROM_SIZE; k++) {
-                population[i].s_count = 0;
-                population[i].chromosome[j][k] = son_matrix[i][j][k];
+        if (i!=best) {
+            for (int j=0; j<CHROM_ARRAY_SIZE; j++) {
+                for (int k=0; k<CHROM_SIZE; k++) {
+                    population[i].chromosome[j][k] = son_matrix[i][j][k];
+                }
             }
         }
+        population[i].s_count = 0;
     }
 }
 
@@ -358,10 +361,12 @@ void mutate_population(int index, double m_prob, int best)
 
     if (index < POPULATION_SIZE) {
         for (int i=0; i<CHROM_ARRAY_SIZE; i++) {
-            for (int j=0; j<CHROM_SIZE; j++) {
-                threshold = f_rand(0, 1);
-                if (threshold < omega) {
-                    population[index].chromosome[i][j] = f_rand(min_max[i*2][j], min_max[i*2+1][j]);
+            if (i!=b) {
+                for (int j=0; j<CHROM_SIZE; j++) {
+                    threshold = f_rand(0, 1);
+                    if (threshold < omega) {
+                        population[index].chromosome[i][j] = f_rand(min_max[i*2][j], min_max[i*2+1][j]);
+                    }
                 }
             }
             population[i].fitness = 0;
