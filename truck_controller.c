@@ -293,7 +293,7 @@ int main(int argc, char **argv)
 
     srand(getpid());
 
-    p_index = 19; //index of the individual in the population
+    p_index = 0; //index of the individual in the population
     step = 0; //the step determines the genetic operator performed in the main loop
     generation = 0;
     time = 0;
@@ -325,8 +325,7 @@ int main(int argc, char **argv)
     wbu_driver_set_gear(2);
 
     //Main loop//////////////////////////////////////////////////////
-    while (wb_robot_step(TIME_STEP) != -1)
-    {
+    while (wb_robot_step(TIME_STEP) != -1) {
         wbu_driver_step();
         //this switch statement is basically a state machine
         //to apply the genetic operators

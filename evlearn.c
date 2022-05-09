@@ -51,7 +51,8 @@ double f_rand(double min, double max)
  * @brief find_best
  * @return the index of the best individual
  */
-int find_best() {
+int find_best()
+{
     int index = 0;
     double i_f = 0;
     double index_f = 0;
@@ -74,7 +75,8 @@ int find_best() {
  * @param begin the beginning index
  * @return the index of the next alive individual
  */
-int next_alive(int begin) {
+int next_alive(int begin)
+{
     int index = begin;
     int count = 0;
 
@@ -272,6 +274,7 @@ void select_population(int index, int k)
         r--;
     }
     index_a[0] = r;
+
     for (int i=1 ; i<k; i++) {
         r = (int)f_rand(0, POPULATION_SIZE);
         if (r == POPULATION_SIZE) {
@@ -285,8 +288,8 @@ void select_population(int index, int k)
         }
         index_a[i] = r;
     }
-
     winner_f = population[index_a[0]].fitness;
+
     for (int i=1; i<k; i++) {
         index_f = population[index_a[i]].fitness;
         if (index_f > winner_f) {
