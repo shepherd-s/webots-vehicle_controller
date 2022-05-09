@@ -135,16 +135,16 @@ bool collisioning(int l_num, double travelled_time, const float *sensor_readings
 }
 
 /**
- * The efective evaluation function has to be implemented so it can
+ * The effective evaluation function has to be implemented so it can
  * be pointed for the evaluate_population of the evlearn.h header
  * implementation, this is done this way because the header can be
  * used whatever the specific application is.
  *
- * @brief efective_evaluation
+ * @brief effective_evaluation
  * @param individual the individual index each recursive call,
  *                   should be initially 0.
  */
-void efective_evaluation(int individual)
+void effective_evaluation(int individual)
 {
     bool collision = false;
     int gear = wbu_driver_get_gear();
@@ -332,9 +332,9 @@ int main(int argc, char **argv)
         //to apply the genetic operators
         switch (step) {
             case 0:
-                evaluate_population(p_index, efective_evaluation);
+                evaluate_population(p_index, effective_evaluation);
                 //the conditions to change to step 1 are inside the
-                //evaluate_population function
+                //ef function
             break;
 
             case 1:

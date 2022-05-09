@@ -233,9 +233,9 @@ void initialize_population(int index)
  * @brief evaluate_population
  * @param index the index of the individual for each iteration.
  */
-void evaluate_population(int index, void (*efective_evaluation) (int i))
+void evaluate_population(int index, void (*effective_evaluation) (int i))
 {
-    efective_evaluation(index);
+    effective_evaluation(index);
 }
 
 /**

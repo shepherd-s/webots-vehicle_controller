@@ -23,9 +23,9 @@ typedef struct Individual {
 //Gives ramdom initial values to the chromosomes of the population
 void initialize_population(int index);
 
-//The evaluation is done througt an efective_evaluation function
+//The evaluation is done througt an effective_evaluation function
 //wich has to be implemented in the code using this header.
-void evaluate_population(int index, void (*efective_evaluation) (int i));
+void evaluate_population(int index, void (*effective_evaluation) (int i));
 
 //Binary ranking
 void select_population(int index, int k);
