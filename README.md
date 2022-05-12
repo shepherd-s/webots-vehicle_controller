@@ -1,6 +1,9 @@
 # Webots-genetic_truck_controller-5.0.1
 A genetic algorithm to teach a self-driving truck how to follow a road, based on LiDAR readings of near roadside barriers.
 
+## BRANCH NOTE
+This branch is to implement a read method so it can continue training from the last generation.
+
 ## IMPORTANT NOTE
 This is the first version converging as expected, you should see a fairly good population at about generation 100 where almost all pass
 the first curve and many of them pass the second one. By now, the algorithm came out with the idea of maximize time travelled, so it became
