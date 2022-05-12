@@ -259,7 +259,7 @@ void effective_evaluation(int individual)
     collision = collisioning(3, travelled_time, lidars);
 
     if (collision) {
-        population[individual].fitness = travelled_time*avg_velocity;
+        population[individual].fitness = travelled_time*pow(avg_velocity, 2);
         time = wb_robot_get_time();
         m_count = 1;
         measure = 0;

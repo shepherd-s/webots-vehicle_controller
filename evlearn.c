@@ -145,6 +145,11 @@ void write_file(int index, int generation)
     }
 }
 
+void read_file(int index)
+{
+
+}
+
 int contains(int index_a[], int k, int r)
 {
     for (int i=0; i<k; i++) {
