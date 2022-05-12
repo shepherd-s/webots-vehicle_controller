@@ -1,6 +1,12 @@
 # Webots-genetic_truck_controller-5.0.1
 A genetic algorithm to teach a self-driving truck how to follow a road, based on LiDAR readings of near roadside barriers.
 
+## IMPORTANT NOTE
+This is the first version converging as expected, you should see a fairly good population at about generation 100 where almost all pass
+the first curve and many of them pass the second one. By now, the algorithm came out with the idea of maximize time travelled, so it became
+pretty slow when turning as the optimization function is time travelled * average velocity because it found out that there is a wider range
+to play in time rather than in average velocity, but this can be easily changed. At the moment it is converging well.
+
 ## DESCRIPTION
 This is an external controller for a simulated self-driving truck, using the Webots simulator, and it's API.
 To use the controller you need Webots installed on your system. A Webots world file is provided ("genetic_self_driving_truck.wtb"),
