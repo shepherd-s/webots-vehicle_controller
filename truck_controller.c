@@ -63,17 +63,17 @@ WbFieldRef rotation_f;
 Individual population[POPULATION_SIZE];
 FILE *file;
 const double min_max[CHROM_ARRAY_SIZE*2][CHROM_SIZE] = {{0,0,0,0,-1,-1,-1,-1,-1},       //TO CHANGE
-                                                      {1,1,1,1,1,0,0,0,0},
-                                                      {0,0,0,0,0,0,0,0,0},
-                                                      {.1,.1,.1,.1,.1,.1,.1,.1,.1},
-                                                      {-.1,-.1,-.1,-.1,-.1,-.1,-.1,-.1,-.1},
-                                                      {0,0,0,0,0,0,0,0,0},
-                                                      {0,0,0,0,0,0,0,0,0},
-                                                      {0,0,0,-1,-1,-1,0,0,0},
-                                                      {0,0,0,0,0,0,0,0,0},
-                                                      {1,1,1,1,1,1,1,1,1},
-                                                      {0.5,0,0,0,0,0,0,0,0},
-                                                      {1,0,0,0,0,0,0,0,0}};
+                                                        {1,1,1,1,1,0,0,0,0},
+                                                        {0,0,0,0,0,0,0,0,0},
+                                                        {.1,.1,.1,.1,.1,.1,.1,.1,.1},
+                                                        {-.1,-.1,-.1,-.1,-.1,-.1,-.1,-.1,-.1},
+                                                        {0,0,0,0,0,0,0,0,0},
+                                                        {0,0,0,0,0,0,0,0,0},
+                                                        {0,0,0,-1,-1,-1,0,0,0},
+                                                        {0,0,0,0,0,0,0,0,0},
+                                                        {1,1,1,1,1,1,1,1,1},
+                                                        {0.5,0,0,0,0,0,0,0,0},
+                                                        {1,0,0,0,0,0,0,0,0}};
 
 /**
  * Check if the value given is out of the {min, max}
@@ -317,7 +317,6 @@ int main(int argc, char **argv)
     wb_lidar_enable_point_cloud(lidar_left);
     wb_lidar_enable_point_cloud(lidar_right);
 
-
     /*necessary to initialize evlearn*/ 
     initialize_population(0);
 
@@ -338,7 +337,7 @@ int main(int argc, char **argv)
 
             case 1:
                 write_file(0);
-                select_population(0, 10);
+                select_population(0, 6);
                 step = 2;
             break;
 
@@ -348,7 +347,7 @@ int main(int argc, char **argv)
             break;
 
             case 3:
-                mutate_population(0, 0.08, 0);
+                mutate_population(0, 0.15, 0);
                 step = 0;
             break;
         }

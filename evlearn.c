@@ -57,7 +57,7 @@ int find_best()
     double i_f = 0;
     double index_f = 0;
 
-    for (int i=0; i<POPULATION_SIZE; i++) {
+    for (int i=1; i<POPULATION_SIZE; i++) {
         i_f = population[i].fitness;
         index_f = population[index].fitness;
         if(i_f > index_f) {
@@ -155,62 +155,27 @@ int contains(int index_a[], int k, int r)
 }
 
 /**
- * Performs a BLX-apha crossover.
+ * Uniform crossover
  *
  * @brief cross_chromosomes
- * @param mother index of the mother
- * @param father index of the father
+ * @param son_matrix matrix storing all generated offspring
+ * @param son_index current son
+ * @param mother
+ * @param father
  */
 void cross_chromosomes(double son_matrix[POPULATION_SIZE][CHROM_ARRAY_SIZE][CHROM_SIZE],
                       int son_index, int mother, int father)
 {
-    double min = 0;
-    double max = 0;
-    double l_limit = 0;
-    double u_limit = 0;
-    double alpha = 0;
-    double euclidean_1_m = 0;
-    double euclidean_2_m = 0;
-    double son1[CHROM_ARRAY_SIZE][CHROM_SIZE] = {};
-    double son2[CHROM_ARRAY_SIZE][CHROM_SIZE] = {};
-
-    alpha = f_rand(0, 1);
+    int select = rand()%2;
 
     for (int i=0; i<CHROM_ARRAY_SIZE; i++) {
         for (int j=0; j<CHROM_SIZE; j++)  {
-            if (population[mother].chromosome[i][j] >= population[father].chromosome[i][j]) {
-                max = population[mother].chromosome[i][j];
-                min = population[father].chromosome[i][j];
+            double chrom_val = population[mother].chromosome[i][j];
+            if (select) {
+                chrom_val = population[father].chromosome[i][j];
             }
-            else {
-                min = population[mother].chromosome[i][j];
-                max = population[father].chromosome[i][j];
-            }
-
-            l_limit = min - alpha*(min-min_max[i*2][j]);
-            u_limit = max + alpha*(min_max[i*2+1][j]-max);
-
-            son1[i][j] = f_rand(l_limit, u_limit);
-            son2[i][j] = f_rand(l_limit, u_limit);
-        }
-    }
-
-    //select the most different one from the mother to add diversity
-    euclidean_1_m = (double)fabs(euclidean_d(son1, population[mother].chromosome));
-    euclidean_2_m = (double)fabs(euclidean_d(son2, population[mother].chromosome));
-
-    if (euclidean_1_m > euclidean_2_m) {
-        for (int i=0; i<CHROM_ARRAY_SIZE; i++) {
-            for (int j=0; j<CHROM_SIZE; j++) {
-                son_matrix[son_index][i][j] = son1[i][j];
-            }
-        }
-    }
-    else {
-        for (int i=0; i<CHROM_ARRAY_SIZE; i++) {
-            for (int j=0; j<CHROM_SIZE; j++) {
-                son_matrix[son_index][i][j] = son2[i][j];
-            }
+            son_matrix[son_index][i][j] = chrom_val;
+            select = rand()%2;
         }
     }
 }
@@ -305,7 +270,7 @@ void select_population(int index, int k)
 
 /**
  * Implements the crossover method of the genetic algorithm.
- * The specific method is BLX-alpha. The substitution is done
+ * The specific method is Uniform crossover. The substitution is done
  * in this step as well (with elitism k = 1).
  *
  * @brief cross_population
@@ -325,7 +290,7 @@ void cross_population()
 
         if (s_count > 0) {
             for (int j=0; j<s_count; j++) {
-                father = next_alive(mother+1);
+                father = next_alive(mother+j+1);
                 cross_chromosomes(son_matrix, son_index, mother, father);
                 son_index++;
             }
