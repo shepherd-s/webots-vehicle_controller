@@ -1,4 +1,4 @@
-# Webots-genetic_truck_controller-5.0.0
+# Webots-genetic_truck_controller-5.0.1
 A genetic algorithm to teach a self-driving truck how to follow a road, based on LiDAR readings of near roadside barriers.
 
 ## DESCRIPTION
@@ -12,8 +12,8 @@ also ("genetic_truck.pro").
 *if not, it will throw a segmentation fault error.*
 
 - Function to optimize: tt * av (where tt = time travelled and av = average velocity).  
-- Selection method: Torunament with selectable k (example with k = 10).  
-- Crossover method: Uniform (generating 2 sons and selecting the most different one (euclidean distance) from the mother).
+- Selection method: Torunament with selectable k (example with k = 6).  
+- Crossover method: Uniform.
 - Complete population replacement with elitism (k = 1).
 - Mutation method: Uniform with mutation probability inversely proportional to fitness (not applied to the best individual).
 
@@ -21,7 +21,7 @@ also ("genetic_truck.pro").
 - Crossover method changed from BLX-alpha to Uniform.
 - Mutation probability changed to max 15%. As the mutation is inversely proportional to the ratio between currrent fitness and the best one,
 this will cause little mutation in good individuals and high mutation in bad ones so the algorithm has not indiscriminate diversity.
-- Tournament changed from k = 10 to k = 6.
+- Tournament changed from k = 10 to k = 6 in the example.
 
 ## TRAINING SAMPLE VIDEO
 https://user-images.githubusercontent.com/90930079/166741456-0ce57418-f55b-4a4e-8145-9d01ffad18d9.mp4
