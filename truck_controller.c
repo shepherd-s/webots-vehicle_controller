@@ -336,7 +336,7 @@ int main(int argc, char **argv)
             break;
 
             case 1:
-                write_file(0);
+                write_file(0, generation);
                 select_population(0, 6);
                 step = 2;
             break;

@@ -123,7 +123,7 @@ double euclidean_d(double chromosome1[CHROM_ARRAY_SIZE][CHROM_SIZE],
  * @brief write_file
  * @param index recursive index
  */
-void write_file(int index)
+void write_file(int index, int generation)
 {
     if (index == 0) {
         file = fopen("best_gen.txt", "w+");
@@ -137,9 +137,10 @@ void write_file(int index)
             fprintf(file, "\n");
         }
         fprintf(file, "%.4f\n", population[index].fitness);
-        write_file(index+1);
+        write_file(index+1, generation);
     }
     else {
+        fprintf(file, "Generation: %d", generation);
         fclose(file);
     }
 }

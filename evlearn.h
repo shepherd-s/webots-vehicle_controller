@@ -38,4 +38,4 @@ void mutate_population(int index, double m_prob, int best);
 
 //This is to store the last generation so the
 //trainning time is not loss
-void write_file(int index);
+void write_file(int index, int generation);
