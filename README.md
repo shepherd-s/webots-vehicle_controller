@@ -7,12 +7,6 @@ To use the controller you need Webots installed on your system. A Webots world f
 so you just have to open it in your simulator. It is recommended to use QtCreator to run the controller, there is a Qmake file provided
 also ("genetic_truck.pro").
 
-## IMPORTANT NOTE
-This is the first version converging as expected, you should see a fairly good population at about generation 100 where almost all pass
-the first curve and many of them pass the second one. By now, the algorithm came out with the idea of maximize time travelled, so it became
-pretty slow when turning as the optimization function is time travelled * average velocity because it found out that there is a wider range
-to play in time rather than in average velocity, but this can be easily changed. At the moment it is converging well.
-
 ## ALGORITHM
 *The simulation has to be reset (Ctrl+Shift+T in the simulator) every time before the controller is run,*
 *if not, it will throw a segmentation fault error.*
@@ -24,7 +18,7 @@ to play in time rather than in average velocity, but this can be easily changed.
 - Mutation method: Uniform with mutation probability inversely proportional to fitness (not applied to the best individual).
 
 ## CHANGELOG
-- Optimization function changed from tt * av to tt * av²
+- Optimization function changed from tt * av to tt * av². Now the algorithm finds fast individuals.
 
 ## TRAINING SAMPLE VIDEO
 https://user-images.githubusercontent.com/90930079/166741456-0ce57418-f55b-4a4e-8145-9d01ffad18d9.mp4
