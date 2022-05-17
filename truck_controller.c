@@ -55,9 +55,9 @@ WbFieldRef translation_f;
 WbFieldRef rotation_f;
 
 /**
- * This 3 declarations are mandatory to declare this two variables,
+ * This 3 declarations are mandatory,
  * they are used by the header evlearn.h implementation
- * as global variables. The min max matrix contains the maximum
+ * as global extern variables. The min max matrix contains the maximum
  * and minimum for each value in the chromosome.
  */
 Individual population[POPULATION_SIZE];
