@@ -9,8 +9,8 @@
 
 #pragma once
 
-#define CHROM_ARRAY_SIZE 6       //TO CHANGE
-#define CHROM_SIZE 9             //
+#define CHROM_ARRAY_SIZE 6      //CHANGE AS NEEDED
+#define CHROM_SIZE 9            //
 #define POPULATION_SIZE 20      //
 
 typedef struct Individual {
@@ -27,13 +27,13 @@ void initialize_population(int index);
 //wich has to be implemented in the code using this header.
 void evaluate_population(int index, void (*effective_evaluation) (int i));
 
-//Binary ranking
+//Tournament selection with k individuals
 void select_population(int index, int k);
 
-//BLX-alpha
+//Uniform crossover with elitism k = 1
 void cross_population();
 
-//Uniform mutation
+//Uniform mutation with dynamic probability (inversely proportional to fitness)
 void mutate_population(int index, double m_prob, int best);
 
 //This is to store the last generation so the

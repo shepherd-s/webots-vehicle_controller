@@ -62,7 +62,7 @@ WbFieldRef rotation_f;
  */
 Individual population[POPULATION_SIZE];
 FILE *file;
-const double min_max[CHROM_ARRAY_SIZE*2][CHROM_SIZE] = {{0,0,0,0,-1,-1,-1,-1,-1},       //TO CHANGE
+const double min_max[CHROM_ARRAY_SIZE*2][CHROM_SIZE] = {{0,0,0,0,-1,-1,-1,-1,-1},
                                                         {1,1,1,1,1,0,0,0,0},
                                                         {0,0,0,0,0,0,0,0,0},
                                                         {.1,.1,.1,.1,.1,.1,.1,.1,.1},
@@ -332,7 +332,7 @@ int main(int argc, char **argv)
             case 0:
                 evaluate_population(p_index, effective_evaluation);
                 //the conditions to change to step 1 are inside the
-                //ef function
+                //effective_evaluation function
             break;
 
             case 1:

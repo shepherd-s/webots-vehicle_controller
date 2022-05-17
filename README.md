@@ -13,12 +13,13 @@ also ("genetic_truck.pro").
 
 - Function to optimize: tt * av² (where tt = time travelled and av = average velocity).  
 - Selection method: Torunament with selectable k (example with k = 6).  
+
+## ALGORITHM
+- Function to optimize: tt * av² (where tt = time travelled and av = average velocity).
+- Selection method: Torunament with selectable k (example with k = 6).
 - Crossover method: Uniform.
 - Replacement : Complete population replacement with elitism (k = 1).
 - Mutation method: Uniform with mutation probability inversely proportional to fitness (not applied to the best individual).
-
-## CHANGELOG
-- Optimization function changed from tt * av to tt * av². Now the algorithm finds fast individuals.
 
 ## TRAINING SAMPLE VIDEO
 https://user-images.githubusercontent.com/90930079/166741456-0ce57418-f55b-4a4e-8145-9d01ffad18d9.mp4
