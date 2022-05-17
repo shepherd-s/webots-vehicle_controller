@@ -7,7 +7,7 @@ To use the controller you need Webots installed on your system. A Webots world f
 so you just have to open it in your simulator. It is recommended to use QtCreator to run the controller, there is a Qmake file provided
 also ("genetic_truck.pro").
 
-## IMOPORTANT NOTE
+## IMPORTANT NOTE
 *The simulation has to be reset (Ctrl+Shift+T in the simulator) every time before the controller is run,*
 *if not, it will throw a segmentation fault error.*
 
