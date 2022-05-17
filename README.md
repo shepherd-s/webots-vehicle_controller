@@ -13,7 +13,7 @@ also ("genetic_truck.pro").
 
 ## ALGORITHM
 - Function to optimize: tt * av² (where tt = time travelled and av = average velocity).
-- Selection method: Torunament with selectable k (example with k = 6).
+- Selection method: Tournament with selectable k (example with k = 6).
 - Crossover method: Uniform.
 - Replacement : Complete population replacement with elitism (k = 1).
 - Mutation method: Uniform with mutation probability inversely proportional to fitness (not applied to the best individual).
