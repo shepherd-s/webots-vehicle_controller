@@ -26,7 +26,7 @@ extern FILE *file;
  * component between the given range. There are two vectors for each chromosome
  * the first one contains the lower limit and the second the upper limit.
  * They should be changed depending of the specific application.
- * It has to ve declared and initialized in the controller code.
+ * It has to be declared and initialized in the controller code.
  */
 extern const double min_max[CHROM_ARRAY_SIZE*2][CHROM_SIZE];
 
@@ -46,7 +46,7 @@ double f_rand(double min, double max)
 }
 
 /**
- * This find the individual with the best fitness
+ * This finds the individual with the best fitness
  *
  * @brief find_best
  * @return the index of the best individual
@@ -122,6 +122,7 @@ double euclidean_d(double chromosome1[CHROM_ARRAY_SIZE][CHROM_SIZE],
  *
  * @brief write_file
  * @param index recursive index
+ * @param generation the current generation
  */
 void write_file(int index, int generation)
 {
@@ -145,11 +146,15 @@ void write_file(int index, int generation)
     }
 }
 
-void read_file(int index)
-{
-
-}
-
+/**
+ * Checks if an element exists in an array
+ *
+ * @brief contains
+ * @param index_a array to check
+ * @param k size of the array
+ * @param r element to find
+ * @return
+ */
 int contains(int index_a[], int k, int r)
 {
     for (int i=0; i<k; i++) {
@@ -321,6 +326,8 @@ void cross_population()
  *
  * @brief mutate_population
  * @param index recursive index
+ * @param m_prob max mutation probability
+ * @param best current best individual
  */
 void mutate_population(int index, double m_prob, int best)
 {
