@@ -19,5 +19,5 @@ also ("genetic_truck.pro").
 - Mutation method: Uniform with mutation probability inversely proportional to fitness (not applied to the best individual).
 
 ## TRAINING SAMPLE VIDEOS
-https://user-images.githubusercontent.com/90930079/169010655-1e4b30eb-e2c4-4223-894b-0f1aa11a34ea.mp4
+https://user-images.githubusercontent.com/90930079/169010655-1e4b30eb-e2c4-4223-894b-0f1aa11a34ea.mp4  
 https://user-images.githubusercontent.com/90930079/169010721-37777ea3-7f7b-4cd6-ba33-6cd008c8640e.mp4
