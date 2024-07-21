@@ -8,7 +8,7 @@
  *              used as chromosome for a given optimisation
  *              function.
  *
- * Author: Shepherdsoft_s
+ * Author: shepherd-s
  * Contact: shepherdsoft@outlook.com
  */
 
