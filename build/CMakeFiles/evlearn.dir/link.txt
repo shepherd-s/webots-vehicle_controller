@@ -1,0 +1,2 @@
+/usr/bin/ar qc libevlearn.a CMakeFiles/evlearn.dir/src/evlearn.c.o
+/usr/bin/ranlib libevlearn.a

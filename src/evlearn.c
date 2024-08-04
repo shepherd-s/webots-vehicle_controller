@@ -26,6 +26,7 @@
 size_t evlearn_population_size;
 size_t evlearn_chrom_array_size;
 size_t evlearn_chrom_size;
+size_t evlearn_generation = 0;
 Individual evlearn_population[MAX_POPULATION_SIZE];
 FILE* evlearn_output_file;
 FILE* evlearn_input_file;
@@ -58,7 +59,167 @@ FILE* evlearn_input_file;
  */
 double evlearn_min_max_matrix[MAX_CHROM_ARRAY_SIZE*2][MAX_CHROM_SIZE];
 
-size_t evlearn_generation = 0;
+
+//FUNCTIONS----------------------------------------------------------------------------------------
+
+/**
+ * \brief This is to find a random double value within a given
+ * interval.
+ * 
+ * \param min minimum value returned
+ * \param max maximum value returned
+ * 
+ * \return it returns a random value within the interval
+ */
+double f_rand(double min, double max)
+{
+    double f = (double)rand() / RAND_MAX;
+    return min + f * (max - min);
+}
+
+/**
+ * \brief Check if the value given is out of the {min, max}
+ * interval.
+ *
+ * \param value the value to check
+ * \param min minimum returned
+ * \param max maximum returned
+ * \return a value within the interval
+ */
+double truncate_value(double value, double min, double max)
+{
+    if (value > max) {
+        return max;
+    }
+    if (value < min) {
+        return min;
+    }
+    return value;
+}
+
+/**
+ * \brief Calculates the euclidean distance of two vectors.
+ *
+ * \param chromosome1 subtrahend vector
+ * \param chromosome2 minuend vector
+ * 
+ * \return the positive or negative distance
+ */
+double euclidean_d(
+    double chromosome1[MAX_CHROM_ARRAY_SIZE][MAX_CHROM_SIZE], 
+    double chromosome2[MAX_CHROM_ARRAY_SIZE][MAX_CHROM_SIZE])
+{
+    double sum = 0;
+    double sub = 0;
+
+    for (int i = 0; i < evlearn_chrom_array_size; i++) {
+        for (int j = 0; j < evlearn_chrom_size; j++) {
+            sub = chromosome1[i][j] - chromosome2[i][j];
+            sum += pow(sub, 2);
+        }
+    }
+    return sqrt(sum);
+}
+
+// TODO close to free resources, doc. Don't need global file variable
+int read_file(char* file_path)
+{
+    evlearn_input_file = fopen(file_path, "r");
+    if (evlearn_input_file == NULL)
+        return 1;
+
+    int i_index = 0;
+    int ca_index = 0;
+    int c_index = 0;
+    while (!feof(evlearn_input_file)) {
+        double value;
+
+        if (i_index  >= evlearn_population_size  || 
+            ca_index >= evlearn_chrom_array_size ||
+            c_index  >= evlearn_chrom_size) {
+                return 1;
+        }
+
+        if (fscanf(evlearn_input_file, "%lf", &value) == 1) {
+            if (ca_index > 0 % (ca_index % (evlearn_chrom_array_size - 1) == 0)) {
+
+            }
+            evlearn_population[i_index].chromosome[ca_index][c_index];
+        }
+        else {
+            return 1;
+        }
+
+        if (c_index > 0 && (c_index % (evlearn_chrom_size - 1) == 0)) {
+            ca_index++;
+        }
+
+        if (ca_index > 0 && (ca_index % (evlearn_chrom_array_size -1) == 0)) {
+            i_index++;
+        }
+
+        c_index++;
+    }
+
+    return 0;
+}
+
+/**
+ * \brief Writes the chromosomes and fitness of each individual
+ * in the population to a file called best_gen.txt.
+ *
+ * \param index recursive index, should start in 0
+ * \param generation the current generation
+ */
+int write_file(int index, size_t generation)
+{
+    // TODO: Manage errors with file
+    if (index == 0) {
+        evlearn_output_file = fopen("best_gen.txt", "w+");
+    }
+
+    if (index < evlearn_population_size) {
+        for (int i = 0; i < evlearn_chrom_array_size; i++) {
+            for (int j = 0; j < evlearn_chrom_size; j++) {
+                fprintf(evlearn_output_file, "%lf ", evlearn_population[index].chromosome[i][j]);
+            }
+            fprintf(evlearn_output_file, "\n");
+        }
+        fprintf(evlearn_output_file, "%lf\n", evlearn_population[index].fitness);
+        write_file(index + 1, generation);
+    }
+    else {
+        fprintf(evlearn_output_file, "Generation: %d", (int) generation);
+        fclose(evlearn_output_file);
+        return 0;
+    }
+
+    return 1;
+}
+
+/**
+ * \brief Loads a population from file. If not available it gives 
+ * random values within the given limits in the evlearn_min_max_matrix
+ * to the population. Fitness is initialized to 0 that way.
+ *
+ * \param index recursive index
+ */
+void initialize_population(size_t index)
+{
+    if (index < evlearn_population_size) {
+    
+        for (int i = 0; i < evlearn_chrom_array_size; i++) {
+            for (int j = 0; j < evlearn_chrom_size; j++) {
+                double random = f_rand(evlearn_min_max_matrix[i*2][j], evlearn_min_max_matrix[i*2+1][j]);
+                evlearn_population[index].s_count = 0;
+                evlearn_population[index].fitness = 0;
+                evlearn_population[index].chromosome[i][j] = random;
+            }
+        }
+
+        initialize_population(index+1);
+    }
+}
 
 /**
  * \brief This is to initialize the sizes and the max, min matrix.
@@ -129,52 +290,95 @@ int init(
 }
 
 /**
- * \brief Computes the next generation. The algorithm uses an internal array
- * with the population. The best individual so far can be retrieved using
- * the function get_best_chromosome.
+ * \brief Checks if an element exists in an array
  *
- * \param tournament_size Size of the tournament selection
- * \param mutation_probability Probability of the mutation operator
- * \param write_flag Set 1 to write results on the file 0 otherwise.
+ * \param index_a array to check
+ * \param k size of the array
+ * \param e element to find
+ * 
+ * \return 1 if the element r exists in index_a, 0 otherwise
  */
-void compute_next_generation(size_t tournament_size, double mutation_probability, size_t write_flag)
+int contains(int* index_a, size_t k, size_t e)
 {
-    if (write_flag)
-        write_file(0, evlearn_generation);
-
-    select_population(0, tournament_size);
-    cross_population();
-    mutate_population(0, mutation_probability, 0);
-
-    evlearn_generation++;
-}
-
-Individual get_best()
-{
-    return evlearn_population[find_best()];
+    for (int i = 0; i < k; i++) {
+        if (index_a[i] == e) {
+            return 1;
+        }
+    }
+    return 0;
 }
 
 /**
- * \brief Loads a given population from file. If not available it gives 
- * random values within the given limits in the evlearn_min_max_matrix
- * to the population. Fitness is initialized to 0 that way.
+ * \brief This finds the individual with the best fitness
  *
- * \param index recursive index
+ * \return the index of the best individual
  */
-void initialize_population(size_t index)
+int find_best()
 {
-    if (index < evlearn_population_size) {
-    
-        for (int i = 0; i < evlearn_chrom_array_size; i++) {
-            for (int j = 0; j < evlearn_chrom_size; j++) {
-                double random = f_rand(evlearn_min_max_matrix[i*2][j], evlearn_min_max_matrix[i*2+1][j]);
-                evlearn_population[index].s_count = 0;
-                evlearn_population[index].fitness = 0;
-                evlearn_population[index].chromosome[i][j] = random;
-            }
-        }
+    int index = 0;
+    double i_f = 0;
+    double index_f = 0;
 
-        initialize_population(index+1);
+    for (int i = 1; i < evlearn_population_size; i++) {
+        i_f = evlearn_population[i].fitness;
+        index_f = evlearn_population[index].fitness;
+        if(i_f > index_f) {
+            index = i;
+        }
+    }
+
+    return index;
+}
+
+/**
+ * \brief Finds the next individual alive (with a value different from
+ * 0 in the field "s_count"), beginning from "begin" parameter.
+ *
+ * \param begin the beginning index
+ * 
+ * \return the index of the next alive individual
+ */
+int next_alive(int begin)
+{
+    int index = begin;
+    int count = 0;
+
+    while (count <= evlearn_population_size) {
+        if (index == evlearn_population_size) {
+            index = 0;
+        }
+        if (evlearn_population[index].s_count > 0) {
+            return index;
+        }
+        count++;
+        index++;
+    }
+    return -1;
+}
+
+/**
+ * \brief Uniform crossover
+ *
+ * \param son_matrix matrix storing all generated offspring chromosomes
+ * \param son_index current son being crossed
+ * \param mother 1st selected parent for crossing
+ * \param father 2nd selected parent for crossing
+ */
+void cross_chromosomes(
+    double son_matrix[MAX_POPULATION_SIZE][MAX_CHROM_ARRAY_SIZE][MAX_CHROM_SIZE], 
+    int son_index, int mother, int father)
+{
+    int select = rand()%2;
+
+    for (int i = 0; i < evlearn_chrom_array_size; i++) {
+        for (int j = 0; j < evlearn_chrom_size; j++)  {
+            double chrom_val = evlearn_population[mother].chromosome[i][j];
+            if (select) {
+                chrom_val = evlearn_population[father].chromosome[i][j];
+            }
+            son_matrix[son_index][i][j] = chrom_val;
+            select = rand()%2;
+        }
     }
 }
 
@@ -185,9 +389,9 @@ void initialize_population(size_t index)
  * \param index recursive index
  * \param k number of individuals in the tournament
  */
-void select_population(size_t index, size_t k)
+void select_population(int index, size_t k)
 {
-    size_t winner = 0;
+    int winner = 0;
     double index_f = 0;
     double winner_f = 0;
     int* index_a = (int*) malloc(k * sizeof(int)) ;
@@ -239,11 +443,11 @@ void select_population(size_t index, size_t k)
  */
 void cross_population()
 {
-    size_t best = find_best();
-    size_t mother = 0;
+    int best = find_best();
+    int mother = 0;
     size_t s_count = 0;
-    size_t son_index = 0;
-    size_t father = 0;
+    int son_index = 0;
+    int father = 0;
     double son_matrix[MAX_POPULATION_SIZE][MAX_CHROM_ARRAY_SIZE][MAX_CHROM_SIZE] = {0};
 
     for (int i = 0; i < evlearn_population_size; i++) {
@@ -272,138 +476,6 @@ void cross_population()
 }
 
 /**
- * \brief This is to find a random double value within a given
- * interval.
- * 
- * \param min minimum value returned
- * \param max maximum value returned
- * 
- * \return it returns a random value within the interval
- */
-double f_rand(double min, double max)
-{
-    double f = (double)rand() / RAND_MAX;
-    return min + f * (max - min);
-}
-
-/**
- * \brief This finds the individual with the best fitness
- *
- * \return the index of the best individual
- */
-int find_best()
-{
-    int index = 0;
-    double i_f = 0;
-    double index_f = 0;
-
-    for (int i = 1; i < evlearn_population_size; i++) {
-        i_f = evlearn_population[i].fitness;
-        index_f = evlearn_population[index].fitness;
-        if(i_f > index_f) {
-            index = i;
-        }
-    }
-
-    return index;
-}
-
-/**
- * \brief Finds the next individual alive (with a value different from
- * 0 in the field "s_count"), beginning from "begin" parameter.
- *
- * \param begin the beginning index
- * 
- * \return the index of the next alive individual
- */
-int next_alive(size_t begin)
-{
-    int index = begin;
-    int count = 0;
-
-    while (count <= evlearn_population_size) {
-        if (index == evlearn_population_size) {
-            index = 0;
-        }
-        if (evlearn_population[index].s_count > 0) {
-            return index;
-        }
-        count++;
-        index++;
-    }
-    return -1;
-}
-
-/**
- * \brief Calculates the euclidean distance of two vectors.
- *
- * \param chromosome1 subtrahend vector
- * \param chromosome2 minuend vector
- * 
- * \return the positive or negative distance
- */
-double euclidean_d(
-    double chromosome1[MAX_CHROM_ARRAY_SIZE][MAX_CHROM_SIZE], 
-    double chromosome2[MAX_CHROM_ARRAY_SIZE][MAX_CHROM_SIZE])
-{
-    double sum = 0;
-    double sub = 0;
-
-    for (int i = 0; i < evlearn_chrom_array_size; i++) {
-        for (int j = 0; j < evlearn_chrom_size; j++) {
-            sub = chromosome1[i][j] - chromosome2[i][j];
-            sum += pow(sub, 2);
-        }
-    }
-    return sqrt(sum);
-}
-
-/**
- * \brief Checks if an element exists in an array
- *
- * \param index_a array to check
- * \param k size of the array
- * \param e element to find
- * 
- * \return 1 if the element r exists in index_a, 0 otherwise
- */
-int contains(int* index_a, size_t k, size_t e)
-{
-    for (int i = 0; i < k; i++) {
-        if (index_a[i] == e) {
-            return 1;
-        }
-    }
-    return 0;
-}
-
-/**
- * \brief Uniform crossover
- *
- * \param son_matrix matrix storing all generated offspring
- * \param son_index current son
- * \param mother
- * \param father
- */
-void cross_chromosomes(
-    double son_matrix[MAX_POPULATION_SIZE][MAX_CHROM_ARRAY_SIZE][MAX_CHROM_SIZE], 
-    size_t son_index, size_t mother, size_t father)
-{
-    int select = rand()%2;
-
-    for (int i = 0; i < evlearn_chrom_array_size; i++) {
-        for (int j = 0; j < evlearn_chrom_size; j++)  {
-            double chrom_val = evlearn_population[mother].chromosome[i][j];
-            if (select) {
-                chrom_val = evlearn_population[father].chromosome[i][j];
-            }
-            son_matrix[son_index][i][j] = chrom_val;
-            select = rand()%2;
-        }
-    }
-}
-
-/**
  * \brief Implements the mutation method of the genetic algorithm.
  * Uniform mutation inversely proportional to the fitness.
  *
@@ -411,9 +483,9 @@ void cross_chromosomes(
  * \param m_prob max mutation probability
  * \param best current best individual
  */
-void mutate_population(size_t index, double m_prob, size_t best)
+void mutate_population(int index, double m_prob, int best)
 {
-    size_t b = index == 0 ? find_best() : best;
+    int b = index == 0 ? find_best() : best;
     double mp = m_prob;
     double best_f = evlearn_population[b].fitness;
     double omega = (1 - (evlearn_population[index].fitness / best_f)) * mp;
@@ -437,96 +509,24 @@ void mutate_population(size_t index, double m_prob, size_t best)
 }
 
 /**
- * \brief Check if the value given is out of the {min, max}
- * interval.
+ * \brief Computes the next generation. The algorithm uses an internal array
+ * with the population. The best individual so far can be retrieved using
+ * the function get_best_chromosome.
  *
- * \param value the value to check
- * \param min minimum returned
- * \param max maximum returned
- * \return a value within the interval
+ * \param tournament_size Size of the tournament selection
+ * \param mutation_probability Probability of the mutation operator
+ * \param write_flag Set 1 to write results on the file 0 otherwise.
  */
-double truncate_value(double value, double min, double max)
+void compute_next_generation(size_t tournament_size, double mutation_probability)
 {
-    if (value > max) {
-        return max;
-    }
-    if (value < min) {
-        return min;
-    }
-    return value;
+    select_population(0, tournament_size);
+    cross_population();
+    mutate_population(0, mutation_probability, 0);
+
+    evlearn_generation++;
 }
 
-/**
- * \brief Writes the chromosomes and fitness of each individual
- * in the population to a file called best_gen.txt.
- *
- * \param index recursive index, should start in 0
- * \param generation the current generation
- */
-int write_file(size_t index, size_t generation)
+Individual get_best()
 {
-    // TODO: Manage errors with file
-    if (index == 0) {
-        errno_t error = fopen_s(evlearn_output_file, "best_gen.txt", "w+");
-    }
-
-    if (index < evlearn_population_size) {
-        for (int i = 0; i < evlearn_chrom_array_size; i++) {
-            for (int j = 0; j < evlearn_chrom_size; j++) {
-                fprintf(evlearn_output_file, "%.4f ", evlearn_population[index].chromosome[i][j]);
-            }
-            fprintf(evlearn_output_file, "\n");
-        }
-        fprintf(evlearn_output_file, "%.4f\n", evlearn_population[index].fitness);
-        write_file(index + 1, generation);
-    }
-    else {
-        fprintf(evlearn_output_file, "Generation: %d", generation);
-        fclose(evlearn_output_file);
-        return 0;
-    }
-
-    return 1;
-}
-
-int read_file(char* file_path)
-{
-    errno_t error = fopen_s(evlearn_input_file, file_path, "r");
-    if (evlearn_input_file == NULL)
-        return 1;
-
-    int i_index = 0;
-    int ca_index = 0;
-    int c_index = 0;
-    while (!feof(evlearn_input_file)) {
-        double value;
-
-        if (i_index  >= evlearn_population_size  || 
-            ca_index >= evlearn_chrom_array_size ||
-            c_index  >= evlearn_chrom_size) {
-                return 1;
-        }
-
-        if (fscanf_s(evlearn_input_file, "%.4f", &value) == 1) {
-            if (ca_index > 0 % (ca_index % (evlearn_chrom_array_size - 1) == 0)) {
-
-            }
-            evlearn_population[i_index].chromosome[ca_index][c_index];
-        }
-        else {
-            return 1;
-        }
-
-        if (c_index > 0 && (c_index % (evlearn_chrom_size - 1) == 0)) {
-            ca_index++;
-        }
-
-        if (ca_index > 0 && (ca_index % (evlearn_chrom_array_size -1) == 0)) {
-            i_index++;
-        }
-
-        c_index++;
-    }
-
-    return 0;
+    return evlearn_population[find_best()];
 }

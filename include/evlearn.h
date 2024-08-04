@@ -7,6 +7,8 @@
  * Contact: shepherdsoft@outlook.com
  */
 
+#include <stddef.h>
+
 #pragma once
 
 #define MAX_CHROM_ARRAY_SIZE 100
@@ -30,18 +32,16 @@ int init(
 
 // Main function of the algorithm.
 void 
-compute_next_generation(size_t tournament_size, double mutation_probability, size_t write_flag);
+compute_next_generation(size_t tournament_size, double mutation_probability);
 
 // Gets the best individual so far.
 Individual get_best();
 
 // HELPERS ////////////////////////////////////////////////////////////////////////////////////////
 
-// This is to store the last generation of a traning.
-int write_file(size_t index, size_t generation);
-
-// Read previously generated file.
-int read_file(char* file_path);
+// This is to store the last generation of a traning. If you want to store the generated population,
+// you need to call this function explicitly.
+int write_file(int index, size_t generation);
 
 // Checks if the value given is out of the {min, max} and returns it truncated.
 double truncate_value(double value, double min, double max);
