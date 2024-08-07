@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/CMakeFiles /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build//CMakeFiles/progress.marks
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	cd /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/CMakeFiles /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/test//CMakeFiles/progress.marks
+	cd /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
+	cd /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/clean
 .PHONY : clean
 
 # The main clean target
@@ -103,68 +103,56 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
+	cd /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-#=============================================================================
-# Target rules for targets named evlearn
+# Convenience name for target.
+test/CMakeFiles/evlearn_test.dir/rule:
+	cd /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/evlearn_test.dir/rule
+.PHONY : test/CMakeFiles/evlearn_test.dir/rule
 
-# Build rule for target.
-evlearn: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 evlearn
-.PHONY : evlearn
-
-# fast build rule for target.
-evlearn/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/evlearn.dir/build.make CMakeFiles/evlearn.dir/build
-.PHONY : evlearn/fast
-
-#=============================================================================
-# Target rules for targets named evlearn_test
-
-# Build rule for target.
-evlearn_test: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 evlearn_test
+# Convenience name for target.
+evlearn_test: test/CMakeFiles/evlearn_test.dir/rule
 .PHONY : evlearn_test
 
 # fast build rule for target.
 evlearn_test/fast:
-	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/evlearn_test.dir/build.make test/CMakeFiles/evlearn_test.dir/build
+	cd /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/evlearn_test.dir/build.make test/CMakeFiles/evlearn_test.dir/build
 .PHONY : evlearn_test/fast
 
-src/evlearn.o: src/evlearn.c.o
-.PHONY : src/evlearn.o
+main.o: main.c.o
+.PHONY : main.o
 
 # target to build an object file
-src/evlearn.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/evlearn.dir/build.make CMakeFiles/evlearn.dir/src/evlearn.c.o
-.PHONY : src/evlearn.c.o
+main.c.o:
+	cd /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/evlearn_test.dir/build.make test/CMakeFiles/evlearn_test.dir/main.c.o
+.PHONY : main.c.o
 
-src/evlearn.i: src/evlearn.c.i
-.PHONY : src/evlearn.i
+main.i: main.c.i
+.PHONY : main.i
 
 # target to preprocess a source file
-src/evlearn.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/evlearn.dir/build.make CMakeFiles/evlearn.dir/src/evlearn.c.i
-.PHONY : src/evlearn.c.i
+main.c.i:
+	cd /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/evlearn_test.dir/build.make test/CMakeFiles/evlearn_test.dir/main.c.i
+.PHONY : main.c.i
 
-src/evlearn.s: src/evlearn.c.s
-.PHONY : src/evlearn.s
+main.s: main.c.s
+.PHONY : main.s
 
 # target to generate assembly for a file
-src/evlearn.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/evlearn.dir/build.make CMakeFiles/evlearn.dir/src/evlearn.c.s
-.PHONY : src/evlearn.c.s
+main.c.s:
+	cd /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/evlearn_test.dir/build.make test/CMakeFiles/evlearn_test.dir/main.c.s
+.PHONY : main.c.s
 
 # Help Target
 help:
@@ -174,11 +162,10 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
-	@echo "... evlearn"
 	@echo "... evlearn_test"
-	@echo "... src/evlearn.o"
-	@echo "... src/evlearn.i"
-	@echo "... src/evlearn.s"
+	@echo "... main.o"
+	@echo "... main.i"
+	@echo "... main.s"
 .PHONY : help
 
 
@@ -190,6 +177,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

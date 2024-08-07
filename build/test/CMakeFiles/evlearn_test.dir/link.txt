@@ -1,0 +1,1 @@
+/usr/bin/cc -g CMakeFiles/evlearn_test.dir/main.c.o -o evlearn_test   -L/home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/../lib  -Wl,-rpath,/home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/../lib ../libevlearn.a 

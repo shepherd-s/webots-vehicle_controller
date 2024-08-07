@@ -1,3 +1,6 @@
 /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/CMakeFiles/evlearn.dir
 /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/CMakeFiles/edit_cache.dir
 /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/CMakeFiles/rebuild_cache.dir
+/home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/test/CMakeFiles/evlearn_test.dir
+/home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/test/CMakeFiles/edit_cache.dir
+/home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/test/CMakeFiles/rebuild_cache.dir

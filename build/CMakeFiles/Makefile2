@@ -64,15 +64,32 @@ CMAKE_BINARY_DIR = /home/grey/Workspaces/vscode-workspace/webots-vehicle_control
 
 # The main recursive "all" target.
 all: CMakeFiles/evlearn.dir/all
+all: test/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
-preinstall:
+preinstall: test/preinstall
 .PHONY : preinstall
 
 # The main recursive "clean" target.
 clean: CMakeFiles/evlearn.dir/clean
+clean: test/clean
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory test
+
+# Recursive "all" directory target.
+test/all: test/CMakeFiles/evlearn_test.dir/all
+.PHONY : test/all
+
+# Recursive "preinstall" directory target.
+test/preinstall:
+.PHONY : test/preinstall
+
+# Recursive "clean" directory target.
+test/clean: test/CMakeFiles/evlearn_test.dir/clean
+.PHONY : test/clean
 
 #=============================================================================
 # Target rules for target CMakeFiles/evlearn.dir
@@ -99,6 +116,32 @@ evlearn: CMakeFiles/evlearn.dir/rule
 CMakeFiles/evlearn.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/evlearn.dir/build.make CMakeFiles/evlearn.dir/clean
 .PHONY : CMakeFiles/evlearn.dir/clean
+
+#=============================================================================
+# Target rules for target test/CMakeFiles/evlearn_test.dir
+
+# All Build rule for target.
+test/CMakeFiles/evlearn_test.dir/all: CMakeFiles/evlearn.dir/all
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/evlearn_test.dir/build.make test/CMakeFiles/evlearn_test.dir/depend
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/evlearn_test.dir/build.make test/CMakeFiles/evlearn_test.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/CMakeFiles --progress-num=3,4 "Built target evlearn_test"
+.PHONY : test/CMakeFiles/evlearn_test.dir/all
+
+# Build rule for subdir invocation for target.
+test/CMakeFiles/evlearn_test.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/CMakeFiles 4
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/evlearn_test.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/CMakeFiles 0
+.PHONY : test/CMakeFiles/evlearn_test.dir/rule
+
+# Convenience name for target.
+evlearn_test: test/CMakeFiles/evlearn_test.dir/rule
+.PHONY : evlearn_test
+
+# clean rule for target.
+test/CMakeFiles/evlearn_test.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/evlearn_test.dir/build.make test/CMakeFiles/evlearn_test.dir/clean
+.PHONY : test/CMakeFiles/evlearn_test.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

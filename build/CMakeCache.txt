@@ -14,6 +14,9 @@
 # EXTERNAL cache entries
 ########################
 
+//Build the test executable
+BUILD_TEST:BOOL=ON
+
 //Path to a program.
 CMAKE_ADDR2LINE:FILEPATH=/usr/bin/addr2line
 
@@ -218,6 +221,15 @@ evlearn_IS_TOP_LEVEL:STATIC=ON
 //Value Computed by CMake
 evlearn_SOURCE_DIR:STATIC=/home/grey/Workspaces/vscode-workspace/webots-vehicle_controller
 
+//Value Computed by CMake
+evlearn_test_BINARY_DIR:STATIC=/home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/build/test
+
+//Value Computed by CMake
+evlearn_test_IS_TOP_LEVEL:STATIC=OFF
+
+//Value Computed by CMake
+evlearn_test_SOURCE_DIR:STATIC=/home/grey/Workspaces/vscode-workspace/webots-vehicle_controller/test
+
 
 ########################
 # INTERNAL cache entries
@@ -323,7 +335,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=1
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=2
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
